@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import HeadingWithLogo from "../components/HeadingWithLogo";
 
 export default function Login() {
@@ -38,7 +40,10 @@ export default function Login() {
         </form>
         <section className="mt-3">
           <p className="text-sm text-slate-500">
-            Don&apos;t have an account? Sign up!
+            Don&apos;t have an account?{" "}
+            <Link to="/register" className="underline text-sky-700">
+              Sign up!
+            </Link>
           </p>
         </section>
       </section>
