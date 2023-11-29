@@ -13,7 +13,7 @@ export default function Register() {
         <form>
           <section className="mt-3">
             <label htmlFor="name" className="text-slate-500 text-xs">
-              Full name
+              Display name
             </label>
             <input
               id="name"
