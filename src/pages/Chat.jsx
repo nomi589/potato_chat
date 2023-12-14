@@ -1,14 +1,28 @@
+import { signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+
+import { auth } from "../helpers/firebase";
 import ChatCard from "../components/ChatCard";
 import RoundImageWithText from "../components/RoundImageWithText";
 
 export default function Chat() {
+  const navigate = useNavigate();
+
+  async function handleLogout() {
+    await signOut(auth).catch((error) => console.error(error));
+    navigate("/");
+  }
   return (
     <div className="wrapper bg-slate-200 h-screen flex justify-center items-center">
       <div className="container bg-slate-50 h-[720px] border border-indigo-700 rounded-sm flex drop-shadow-md">
         <section aria-label="side bar" className="basis-1/3 flex flex-col">
           <section className="h-16 px-3 py-1 flex justify-between items-center gap-1 text-sm bg-indigo-200">
             <RoundImageWithText />
-            <button type="button" aria-label="logout button">
+            <button
+              type="button"
+              aria-label="logout button"
+              onClick={handleLogout}
+            >
               Log out
             </button>
           </section>

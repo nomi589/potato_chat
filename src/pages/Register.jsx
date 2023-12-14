@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { Link, useNavigate } from "react-router-dom";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 import HeadingWithLogo from "../components/HeadingWithLogo";
 import { auth } from "../helpers/firebase";
 
 export default function Register() {
+  const navigate = useNavigate();
+
   async function handleSubmit(e) {
     e.preventDefault();
     const displayName = document.getElementById("name").value;
@@ -16,7 +18,12 @@ export default function Register() {
       email,
       password
     ).catch((error) => console.error(error));
-    console.log(userCredential.user);
+    console.log("User created!");
+
+    await updateProfile(userCredential.user, { displayName });
+    console.log("Display name updated!");
+
+    navigate("/chat");
   }
 
   return (
