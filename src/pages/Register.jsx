@@ -1,8 +1,24 @@
 import { Link } from "react-router-dom";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 import HeadingWithLogo from "../components/HeadingWithLogo";
+import { auth } from "../helpers/firebase";
 
 export default function Register() {
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const displayName = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    ).catch((error) => console.error(error));
+    console.log(userCredential.user);
+  }
+
   return (
     <div className="container w-1/2 mx-auto mt-20">
       <HeadingWithLogo />
@@ -10,7 +26,7 @@ export default function Register() {
         <h2 className="text-3xl text-slate-700 text-center">
           Create an account
         </h2>
-        <form>
+        <form onSubmit={handleSubmit}>
           <section className="mt-3">
             <label htmlFor="name" className="text-slate-500 text-xs">
               Display name
